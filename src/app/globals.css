@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 248 250 252;
+  --foreground: 15 23 42;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 2 6 23;
+    --foreground: 248 250 252;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: var(--font-geist-sans, "Inter"), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .button-jiggle {
+    animation: jiggle 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes jiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  15% {
+    transform: rotate(-1.5deg) translateY(-1px);
+  }
+  30% {
+    transform: rotate(1.5deg) translateY(1px);
+  }
+  45% {
+    transform: rotate(-0.8deg) translateY(-1px);
+  }
+  60% {
+    transform: rotate(0.6deg);
+  }
+  75% {
+    transform: rotate(-0.4deg);
+  }
+}
