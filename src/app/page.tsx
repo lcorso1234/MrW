@@ -37,24 +37,21 @@ export default function Home() {
   }, []);
 
   const handleSaveAndText = useCallback(() => {
-    try {
-      const blob = new Blob([vcardContents], { type: "text/vcard" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "mr-wabick-contact.vcf";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    } catch (error) {
-      console.error("Failed to download contact", error);
-    }
+    const blob = new Blob([vcardContents], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "mr-wabick-contact.vcf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-    const smsLink = `sms:+17087041120?&body=${smsBody}`;
+    // Wait for the download to be initiated, then open SMS
     setTimeout(() => {
+      URL.revokeObjectURL(url);
+      const smsLink = `sms:+17087041120?&body=${smsBody}`;
       window.location.href = smsLink;
-    }, 400);
+    }, 1000);
   }, [vcardContents]);
 
   return (
